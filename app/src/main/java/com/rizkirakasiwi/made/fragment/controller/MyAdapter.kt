@@ -27,7 +27,7 @@ class MyAdapter (val data:List<MovieData>, val image:List<Int>, val isMovie:Bool
         Picasso.get().load(image[position]).into(view.img_banner)
 
         view.setOnClickListener {
-            val bundle = bundleOf(Detail.CODE to data[position])
+            val bundle = bundleOf(Detail.MOVIE to data[position], Detail.IMAGE to image[position])
             if(isMovie) {
                 it.findNavController().navigate(R.id.action_movie_to_detail, bundle)
             }else{

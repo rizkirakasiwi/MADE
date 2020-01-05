@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">MADE</string>
     <string name="movie">Movie</string>
@@ -12,7 +13,6 @@
     <string name="rating">Rating : %s</string>
     <string name="genre">Genre : %s</string>
     <string name="judul">%1$s (%2$s)</string>
-    <string name="detail">Detail</string>
     <string name="change_language">Change Language</string>
 
     <integer-array name="poster_movie">
@@ -241,6 +241,5 @@
         <item>A war-hardened Crusader and his Moorish commander mount an audacious revolt against the corrupt English crown.</item>
         <item>Adventure, Action, Thriller</item>
     </string-array>
-
 
 </resources>

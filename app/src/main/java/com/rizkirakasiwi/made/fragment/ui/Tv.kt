@@ -66,7 +66,7 @@ class Tv : Fragment() {
         if(movie.isNullOrEmpty() && image.isNullOrEmpty()){
             ShowLoading.isLoad()
         }else {
-            recycler_tv.adapter = MyAdapter(movie, image)
+            recycler_tv.adapter = MyAdapter(movie, image,false)
             ShowLoading.isDone()
         }
     }

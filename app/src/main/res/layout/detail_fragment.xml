@@ -1,13 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    android:layout_margin="16dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragment.ui.Detail">
 
-    <TextView
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello" />
-
-</FrameLayout>
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:adjustViewBounds="true"
+                android:id="@+id/img_detail_banner"
+                android:contentDescription="@string/detail_poster"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"/>
+            <LinearLayout
+                android:layout_marginLeft="16dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/txt_detail_judultahun"
+                    style="@style/textview_header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:id="@+id/txt_detail_durasi"
+                    style="@style/textview_standard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:id="@+id/txt_detail_rating"
+                    style="@style/textview_standard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:id="@+id/txt_detail_genre"
+                    android:gravity="left"
+                    style="@style/textview_standard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+        </LinearLayout>
+        <TextView
+            android:layout_marginTop="16dp"
+            style="@style/textview_standard"
+            android:id="@+id/txt_detail_deskripsi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+</ScrollView>
