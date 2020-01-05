@@ -1,4 +1,4 @@
-package com.rizkirakasiwi.made.fragment
+package com.rizkirakasiwi.made.fragment.ui
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -8,11 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.rizkirakasiwi.made.R
+import com.rizkirakasiwi.made.fragment.model.DetailViewModel
+import com.rizkirakasiwi.made.fragment.data.MovieData
 
 class Detail : Fragment() {
 
     companion object {
         fun newInstance() = Detail()
+        val CODE = "MovieData"
     }
 
     private lateinit var viewModel: DetailViewModel
@@ -27,7 +30,13 @@ class Detail : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(DetailViewModel::class.java)
-        // TODO: Use the ViewModel
+        val movieData = arguments?.getParcelable<MovieData>(CODE)
+        viewModel.setMovieData(movieData)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
     }
 
 }
