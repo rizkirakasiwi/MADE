@@ -15,6 +15,7 @@
     <string name="detail">Detail</string>
     <string name="change_language">Change Language</string>
 
+
     <integer-array name="poster_movie">
         <item>@drawable/poster_a_star</item>
         <item>@drawable/poster_aquaman</item>

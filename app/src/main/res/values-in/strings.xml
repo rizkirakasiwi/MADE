@@ -13,6 +13,7 @@
     <string name="rating">Rating : %s</string>
     <string name="genre">Genre : %s</string>
     <string name="judul">%1$s (%2$s)</string>
+    <string name="detail">Detail</string>
     <string name="change_language">Ganti Bahasa</string>
 
     <integer-array name="poster_movie">
