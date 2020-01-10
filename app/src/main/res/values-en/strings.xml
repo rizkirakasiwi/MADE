@@ -2,7 +2,6 @@
 <resources>
     <string name="app_name">MADE</string>
     <string name="movie">Movie</string>
-    <string name="tv">TV</string>
     <string name="poster">Poster</string>
     <string name="rating_image">Rating image</string>
     <string name="movies">Movies</string>
@@ -15,4 +14,5 @@
     <string name="change_language">Change Language</string>
     <string name="original_language">Language : %s</string>
     <string name="language">en-US</string>
+    <string name="movie_catalogue">Movie Catalogue</string>
 </resources>

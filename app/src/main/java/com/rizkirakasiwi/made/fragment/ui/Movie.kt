@@ -2,6 +2,7 @@ package com.rizkirakasiwi.made.fragment.ui
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -40,11 +41,7 @@ class Movie : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(MovieViewModel::class.java)
-    }
 
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         GlobalScope.launch(Dispatchers.Main) {
             val language = resources.getString(R.string.language)
             val movie = viewModel.getMovieData(language)
@@ -58,24 +55,17 @@ class Movie : Fragment() {
     }
 
 
-    override fun onResume() {
-        super.onResume()
-        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.movies)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         viewModel.dataForAdapter.observe(this, Observer {
-            if (!it.movie?.results.isNullOrEmpty() && !it.genre.isNullOrEmpty()) {
-                Loading(true)
-                recycler_movie.adapter =
-                    MovieAdapter(
-                        it.movie!!,
-                        it.genre,
-                        it.language
-                    )
-            } else {
-                Loading(false)
-            }
+            Loading(true)
+            recycler_movie.adapter =
+                MovieAdapter(
+                    it.movie!!,
+                    it.genre!!,
+                    it.language!!
+                )
         })
-
-
     }
 
 

@@ -3,28 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph.xml"
-    app:startDestination="@id/movie">
-    <fragment
-        android:id="@+id/movie"
-        android:name="com.rizkirakasiwi.made.fragment.ui.Movie"
-        android:label="movie_fragment"
-        tools:layout="@layout/movie_fragment" >
-        <action
-            android:id="@+id/action_movie_to_detail"
-            app:destination="@id/detail" />
-    </fragment>
-    <fragment
-        android:id="@+id/tv"
-        android:name="com.rizkirakasiwi.made.fragment.ui.Tv"
-        android:label="tv_fragment"
-        tools:layout="@layout/tv_fragment" >
-        <action
-            android:id="@+id/action_tv_to_detail"
-            app:destination="@id/detail" />
-    </fragment>
+    app:startDestination="@id/homeMain">
     <fragment
         android:id="@+id/detail"
         android:name="com.rizkirakasiwi.made.fragment.ui.Detail"
         android:label="detail_fragment"
         tools:layout="@layout/detail_fragment" />
+    <fragment
+        android:id="@+id/homeMain"
+        android:name="com.rizkirakasiwi.made.fragment.ui.HomeMain"
+        android:label="fragment_home_main"
+        tools:layout="@layout/fragment_home_main" >
+        <action
+            android:id="@+id/action_homeMain_to_detail"
+            app:destination="@id/detail" />
+    </fragment>
 </navigation>

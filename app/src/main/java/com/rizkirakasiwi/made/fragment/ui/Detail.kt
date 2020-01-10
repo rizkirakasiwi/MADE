@@ -63,8 +63,7 @@ class Detail : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        activity?.findViewById<BottomNavigationView>(R.id.bottom_nav)?.visibility = View.GONE
-        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.detail)
+       (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.detail)
         viewModel.dataDetail.observe(this, Observer {
             txt_detail_deskripsi.text = it.movie?.overview ?: it.tv?.overview
             txt_detail_judultahun.text = resources.getString(
@@ -94,9 +93,5 @@ class Detail : Fragment() {
             }
         }
 
-    override fun onStop() {
-        super.onStop()
-        activity?.findViewById<BottomNavigationView>(R.id.bottom_nav)?.visibility = View.VISIBLE
-    }
 
 }

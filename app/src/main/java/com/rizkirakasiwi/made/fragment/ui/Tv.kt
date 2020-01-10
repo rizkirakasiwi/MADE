@@ -27,7 +27,6 @@ class Tv : Fragment() {
     }
 
     private lateinit var viewModel: TvViewModel
-    private lateinit var tv: DataMovie
 
 
     override fun onCreateView(
@@ -40,10 +39,6 @@ class Tv : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(TvViewModel::class.java)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         GlobalScope.launch(Dispatchers.Main) {
             val language = resources.getString(R.string.language)
             val tvShow = viewModel.getTvData(language)
@@ -55,23 +50,19 @@ class Tv : Fragment() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.tv_show)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         viewModel.dataForAdapter.observe(this, Observer {
-            if (!it.tvshow?.results.isNullOrEmpty() && !it.genre.isNullOrEmpty()) {
-                Loading(true)
-                recycler_tv.adapter =
-                    TvShowAdapter(
-                        it.tvshow!!,
-                        it.genre,
-                        it.language
-                    )
-            } else {
-                Loading(false)
-            }
+            Loading(true)
+            recycler_tv.adapter =
+                TvShowAdapter(
+                    it.tvshow!!,
+                    it.genre!!,
+                    it.language!!
+                )
         })
     }
+
 
     private fun Loading(isDone: Boolean) {
         if (isDone) {

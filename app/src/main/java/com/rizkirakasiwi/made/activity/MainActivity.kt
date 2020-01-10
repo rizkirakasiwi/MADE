@@ -6,13 +6,15 @@ import android.os.Bundle
 import android.provider.Settings
 import android.view.Menu
 import android.view.MenuItem
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.rizkirakasiwi.made.R
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -20,14 +22,14 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var navController: NavController
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val appBarConfiguration =  AppBarConfiguration.Builder(setOf(R.id.movie, R.id.tv)).build()
-        navController = findNavController(R.id.nav_host_fragment)
-        bottom_nav.setupWithNavController(navController)
-        setupActionBarWithNavController(this, navController,appBarConfiguration)
+        supportActionBar?.elevation = 0.0f
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment)
+        setupActionBarWithNavController(this, navController)
     }
 
 
@@ -44,6 +46,8 @@ class MainActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onSupportNavigateUp() = findNavController(R.id.nav_host_fragment).navigateUp()
+    override fun onSupportNavigateUp() = NavigationUI.navigateUp(navController,null)
+
+
 
 }

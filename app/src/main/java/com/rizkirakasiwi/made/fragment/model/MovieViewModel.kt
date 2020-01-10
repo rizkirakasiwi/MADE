@@ -24,4 +24,5 @@ class MovieViewModel : ViewModel() {
     fun setData(dataForAdapter: DataForAdapter) {
         _dataForAdapter.value = dataForAdapter
     }
+
 }

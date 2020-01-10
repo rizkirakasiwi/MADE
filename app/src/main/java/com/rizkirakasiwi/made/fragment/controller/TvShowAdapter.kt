@@ -32,7 +32,7 @@ class TvShowAdapter(
                 Detail.GENRE to my_genre,
                 Detail.LANGUAGE to language
             )
-            it.findNavController().navigate(R.id.action_tv_to_detail, bundle)
+            it.findNavController().navigate(R.id.action_homeMain_to_detail, bundle)
         }
         return MyViewHolder(view)
     }

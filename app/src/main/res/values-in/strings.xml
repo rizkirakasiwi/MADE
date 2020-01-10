@@ -2,7 +2,6 @@
 <resources>
     <string name="app_name">MADE</string>
     <string name="movie">Film</string>
-    <string name="tv">TV</string>
     <string name="poster">Poster</string>
     <string name="rating_image">Gambar Rating</string>
     <string name="movies">Daftar Film</string>
@@ -15,4 +14,5 @@
     <string name="change_language">Ganti Bahasa</string>
     <string name="original_language">Bahasa : %s</string>
     <string name="language">id</string>
+    <string name="movie_catalogue">Katalog Film</string>
 </resources>

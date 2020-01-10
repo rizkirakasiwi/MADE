@@ -6,6 +6,6 @@ import com.rizkirakasiwi.made.fragment.data.tvShow.DataTv
 data class DataForAdapter(
     val movie: DataMovie? = null,
     val tvshow:DataTv? = null,
-    val genre:HashMap<Int,String>,
-    val language:HashMap<String, String>
+    val genre:HashMap<Int,String>?,
+    val language:HashMap<String, String>?
 )
