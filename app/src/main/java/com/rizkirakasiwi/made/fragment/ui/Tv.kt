@@ -8,11 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import com.rizkirakasiwi.made.API
+import com.rizkirakasiwi.made.fragment.controller.API
 
 import com.rizkirakasiwi.made.R
-import com.rizkirakasiwi.made.fragment.controller.MovieAdapter
-import com.rizkirakasiwi.made.fragment.controller.ShowLoading
 import com.rizkirakasiwi.made.fragment.controller.TvShowAdapter
 import com.rizkirakasiwi.made.fragment.data.other.DataForAdapter
 import com.rizkirakasiwi.made.fragment.data.movie.DataMovie
@@ -29,7 +27,7 @@ class Tv : Fragment() {
     }
 
     private lateinit var viewModel: TvViewModel
-    private lateinit var tv : DataMovie
+    private lateinit var tv: DataMovie
 
 
     override fun onCreateView(
@@ -42,30 +40,46 @@ class Tv : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(TvViewModel::class.java)
-        GlobalScope.launch(Dispatchers.Main) {
-            val tvShow = viewModel.getTvData()
-            val genre = API.getGenre(API.genreTvUrl())
-            val dataForAdapter =
-                DataForAdapter(tvshow = tvShow, genre = genre)
-            viewModel.setData(dataForAdapter)
-        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        ShowLoading.initilizeView(recycler_tv, progresbar_tv)
+        GlobalScope.launch(Dispatchers.Main) {
+            val language = resources.getString(R.string.language)
+            val tvShow = viewModel.getTvData(language)
+            val genre = API.getGenre(API.genreTvUrl(language))
+            val languageList = API.getLanguage(API.LanguageUrl())
+            val dataForAdapter =
+                DataForAdapter(tvshow = tvShow, genre = genre, language = languageList)
+            viewModel.setData(dataForAdapter)
+        }
     }
 
     override fun onResume() {
         super.onResume()
         (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.tv_show)
         viewModel.dataForAdapter.observe(this, Observer {
-            if(!it.tvshow?.results.isNullOrEmpty() && !it.genre.isNullOrEmpty()) {
-                ShowLoading.isDone()
-                recycler_tv.adapter = TvShowAdapter(it.tvshow!!, it.genre)
-            }else{
-                ShowLoading.isLoad()
+            if (!it.tvshow?.results.isNullOrEmpty() && !it.genre.isNullOrEmpty()) {
+                Loading(true)
+                recycler_tv.adapter =
+                    TvShowAdapter(
+                        it.tvshow!!,
+                        it.genre,
+                        it.language
+                    )
+            } else {
+                Loading(false)
             }
         })
+    }
+
+    private fun Loading(isDone: Boolean) {
+        if (isDone) {
+            recycler_tv.visibility = View.VISIBLE
+            progresbar_tv.visibility = View.GONE
+        } else {
+            recycler_tv.visibility = View.GONE
+            progresbar_tv.visibility = View.VISIBLE
+        }
     }
 }

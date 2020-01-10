@@ -1,4 +1,4 @@
-package com.rizkirakasiwi.made.fragment.data.other
+package com.rizkirakasiwi.made.fragment.data.language
 
 data class DataLanguage(
     val english_name: String,
