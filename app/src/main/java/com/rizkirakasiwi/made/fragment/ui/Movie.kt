@@ -1,5 +1,9 @@
 package com.rizkirakasiwi.made.fragment.ui
 
+import android.content.Context
+import android.content.Context.CONNECTIVITY_SERVICE
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.util.Log
@@ -8,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.lifecycle.Observer
 import com.rizkirakasiwi.made.fragment.controller.API
 import com.rizkirakasiwi.made.fragment.model.MovieViewModel
@@ -41,18 +46,30 @@ class Movie : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(MovieViewModel::class.java)
+        Log.i(TAG, "oncreate")
+        if(isOnline()) {
+            GlobalScope.launch(Dispatchers.Main) {
+                val language = resources.getString(R.string.language)
+                val movie = viewModel.getMovieData(language)
 
-        GlobalScope.launch(Dispatchers.Main) {
-            val language = resources.getString(R.string.language)
-            val movie = viewModel.getMovieData(language)
-            val genre = API.getGenre(API.genreMovieUrl(language))
-            val languageList = API.getLanguage(API.LanguageUrl())
+                val genre = API.getGenre(API.genreMovieUrl(language))
+                val languageList = API.getLanguage(API.LanguageUrl())
 
-            val dataForAdapter =
-                DataForAdapter(movie = movie, genre = genre, language = languageList)
-            viewModel.setData(dataForAdapter)
+                val dataForAdapter =
+                    DataForAdapter(movie = movie, genre = genre, language = languageList)
+                viewModel.setData(dataForAdapter)
+            }
+        }else{
+            Log.i(TAG, "Network is not available")
         }
     }
+
+    fun isOnline(): Boolean {
+        val connMgr = activity?.getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
+        val networkInfo: NetworkInfo? = connMgr.activeNetworkInfo
+        return networkInfo?.isConnected == true
+    }
+
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

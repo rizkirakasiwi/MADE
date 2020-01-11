@@ -1,7 +1,11 @@
 package com.rizkirakasiwi.made.fragment.ui
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -26,6 +30,7 @@ class Tv : Fragment() {
         fun newInstance() = Tv()
     }
 
+    private val TAG = "TVShow"
     private lateinit var viewModel: TvViewModel
 
 
@@ -39,14 +44,18 @@ class Tv : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(TvViewModel::class.java)
-        GlobalScope.launch(Dispatchers.Main) {
-            val language = resources.getString(R.string.language)
-            val tvShow = viewModel.getTvData(language)
-            val genre = API.getGenre(API.genreTvUrl(language))
-            val languageList = API.getLanguage(API.LanguageUrl())
-            val dataForAdapter =
-                DataForAdapter(tvshow = tvShow, genre = genre, language = languageList)
-            viewModel.setData(dataForAdapter)
+        if (isOnline()) {
+            GlobalScope.launch(Dispatchers.Main) {
+                val language = resources.getString(R.string.language)
+                val tvShow = viewModel.getTvData(language)
+                val genre = API.getGenre(API.genreTvUrl(language))
+                val languageList = API.getLanguage(API.LanguageUrl())
+                val dataForAdapter =
+                    DataForAdapter(tvshow = tvShow, genre = genre, language = languageList)
+                viewModel.setData(dataForAdapter)
+            }
+        }else{
+            Log.i(TAG, "Network is available")
         }
     }
 
@@ -63,6 +72,12 @@ class Tv : Fragment() {
         })
     }
 
+
+    fun isOnline(): Boolean {
+        val connMgr = activity?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val networkInfo: NetworkInfo? = connMgr.activeNetworkInfo
+        return networkInfo?.isConnected == true
+    }
 
     private fun Loading(isDone: Boolean) {
         if (isDone) {
