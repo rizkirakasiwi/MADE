@@ -1,20 +1,31 @@
 package com.rizkirakasiwi.made.fragment.controller
 
+import android.content.ContentValues
+import android.content.Context
+import android.media.Image
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.ToggleButton
 import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.rizkirakasiwi.made.R
+import com.rizkirakasiwi.made.fragment.DatabaseHelper
+import com.rizkirakasiwi.made.fragment.DatabaseHelper.Companion.TABLE_MOVIE
 import com.rizkirakasiwi.made.fragment.controller.GenerateToGenreName.generate
+import com.rizkirakasiwi.made.fragment.data.FavoriteDb
 import com.rizkirakasiwi.made.fragment.data.movie.DataMovie
+import com.rizkirakasiwi.made.fragment.data.movie.MovieResult
 import com.rizkirakasiwi.made.fragment.ui.Detail
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.catalog_ui.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import okhttp3.internal.notify
 
 class MovieAdapter(
     private val data: DataMovie,
@@ -22,44 +33,113 @@ class MovieAdapter(
     private val language: HashMap<String, String>
 ) : RecyclerView.Adapter<MyViewHolder>() {
 
+
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.catalog_ui, parent, false)
+        val myViewHolder = MyViewHolder(view)
+
         view.setOnClickListener {
-            val my_genre = generate(data.results[viewType].genre_ids, genre)
-            val language = this.language[data.results[viewType].original_language]
+            val my_genre = generate(data.results[myViewHolder.adapterPosition].genre_ids, genre)
+            val language =
+                this.language[data.results[myViewHolder.adapterPosition].original_language]
             val bundle = bundleOf(
-                Detail.MOVIE to data.results[viewType],
+                Detail.MOVIE to data.results[myViewHolder.adapterPosition],
                 Detail.GENRE to my_genre,
                 Detail.LANGUAGE to language
             )
             it.findNavController().navigate(R.id.action_homeMain_to_detail, bundle)
         }
 
-        return MyViewHolder(view)
+        view.img_favorite.setOnClickListener {
+            if (view.img_favorite.isChecked) {
+                DatabaseHelper(view.context).insertData(
+                    TABLE_MOVIE,
+                    values(myViewHolder.adapterPosition)
+                )
+
+                Log.i("Adapter", myViewHolder.adapterPosition.toString())
+            } else {
+                DatabaseHelper(view.context).deleteFav(
+                    TABLE_MOVIE,
+                    data.results[myViewHolder.adapterPosition].id.toString()
+                )
+                Log.i("Adapter", myViewHolder.adapterPosition.toString())
+            }
+        }
+
+        return myViewHolder
+    }
+
+
+    private fun values(position: Int): ContentValues {
+        val contentValues = ContentValues()
+        contentValues.put(FavoriteDb.ID, data.results[position].id)
+        contentValues.put(
+            FavoriteDb.TAHUN,
+            data.results[position].release_date
+        )
+        contentValues.put(FavoriteDb.JUDUL, data.results[position].title)
+        contentValues.put(
+            FavoriteDb.RATING,
+            data.results[position].vote_average
+        )
+        contentValues.put(
+            FavoriteDb.IMAGE_PATH,
+            data.results[position].poster_path
+        )
+        contentValues.put(
+            FavoriteDb.GENRE,
+            generate(
+                data.results[position].genre_ids,
+                genre
+            ).joinToString(", ")
+        )
+        contentValues.put(
+            FavoriteDb.DESKRIPSI,
+            data.results[position].overview
+        )
+        contentValues.put(
+            FavoriteDb.BAHASA,
+            data.results[position].original_language
+        )
+
+
+        return contentValues
     }
 
     override fun getItemCount() = data.results.count()
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val view = holder.itemView
+
+
         view.txt_rating.text = data.results[position].vote_average.toString()
         view.txt_judul.text = view.resources.getString(
             R.string.judul,
             data.results[position].original_title,
             data.results[position].release_date?.substring(0, 4)
         )
-
+        val my_genre = generate(data.results[position].genre_ids, genre)
+        view.txt_genre.text = my_genre.joinToString(", ")
         view.txt_language.text = language[data.results[position].original_language]
-
+        val rating = data.results[position].vote_average.toFloat()
+        view.img_rating.rating = rating / 2f
         load(
             data.results[position].poster_path,
             view.img_banner
         )
 
-        val my_genre = generate(data.results[position].genre_ids, genre)
+        val favoriteDb = DatabaseHelper(view.context).loadFav()
+        favoriteDb.forEach {
+            view.img_favorite.isChecked = data.results[position].id.toString() == it.id
+        }
 
-        view.txt_genre.text = my_genre.joinToString(", ")
+
     }
+
+
+
 
     private fun load(image_path: String?, imageView: ImageView) =
         GlobalScope.launch(Dispatchers.Main) {

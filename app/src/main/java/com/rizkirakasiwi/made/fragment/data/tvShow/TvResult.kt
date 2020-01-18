@@ -61,5 +61,6 @@ data class TvResult(
         override fun newArray(size: Int): Array<TvResult?> {
             return arrayOfNulls(size)
         }
+
     }
 }

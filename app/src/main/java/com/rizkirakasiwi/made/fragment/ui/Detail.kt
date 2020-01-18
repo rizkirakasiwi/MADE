@@ -73,15 +73,12 @@ class Detail : Fragment() {
             )
 
             val vote_average = it.tv?.vote_average ?: it.movie?.vote_average
+            img_detail_rating.rating = vote_average!!.toFloat()/2f
 
-            txt_detail_rating.text = resources.getString(
-                R.string.rating,
-                vote_average.toString()
-            )
-            txt_detail_genre.text =
-                resources.getString(R.string.genre, it.genre?.joinToString(", "))
+            txt_detail_rating.text = vote_average.toString()
+            txt_detail_genre.text = it.genre?.joinToString(", ")
             load(it.tv?.poster_path ?: it.movie?.poster_path, img_detail_banner)
-            txt_detail_language.text = resources.getString(R.string.original_language, it.language)
+            txt_detail_language.text = it.language
         })
     }
 

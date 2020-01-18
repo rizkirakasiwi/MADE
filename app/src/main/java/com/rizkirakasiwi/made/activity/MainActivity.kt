@@ -32,20 +32,6 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(this, navController)
     }
 
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_language, menu)
-        return super.onCreateOptionsMenu(menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.menu_change_language) {
-            val mIntent = Intent(Settings.ACTION_LOCALE_SETTINGS)
-            startActivity(mIntent)
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
     override fun onSupportNavigateUp() = NavigationUI.navigateUp(navController,null)
 
 

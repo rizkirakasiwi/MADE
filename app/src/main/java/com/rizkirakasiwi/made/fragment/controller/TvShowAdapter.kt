@@ -24,17 +24,18 @@ class TvShowAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.catalog_ui, parent, false)
+        val myViewHolder = MyViewHolder(view)
         view.setOnClickListener {
-            val my_genre = generate(data.results[viewType].genre_ids, genre)
-            val language = this.language[data.results[viewType].original_language]
+            val my_genre = generate(data.results[myViewHolder.adapterPosition].genre_ids, genre)
+            val language = this.language[data.results[myViewHolder.adapterPosition].original_language]
             val bundle = bundleOf(
-                Detail.TVSHOW to data.results[viewType],
+                Detail.TVSHOW to data.results[myViewHolder.adapterPosition],
                 Detail.GENRE to my_genre,
                 Detail.LANGUAGE to language
             )
             it.findNavController().navigate(R.id.action_homeMain_to_detail, bundle)
         }
-        return MyViewHolder(view)
+        return myViewHolder
     }
 
     override fun getItemCount() = data.results.count()
@@ -49,6 +50,9 @@ class TvShowAdapter(
         )
 
         view.txt_language.text = language[data.results[position].original_language]
+
+        val rating = data.results[position].vote_average.toFloat()
+        view.img_rating.rating = rating/2f
 
         load(
             data.results[position].poster_path,
