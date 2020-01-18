@@ -61,11 +61,11 @@ class DatabaseHelper (context: Context):SQLiteOpenHelper(context,"FavoriteDb",nu
         db.close()
     }
 
-    fun loadFav() : MutableList<FavoriteDb>{
+    fun loadFav(tableName: String) : MutableList<FavoriteDb>{
         val list = mutableListOf<FavoriteDb>()
         val database = this.readableDatabase
 
-        val query = "SELECT * FROM $TABLE_MOVIE"
+        val query = "SELECT * FROM $tableName"
         val result = database.rawQuery(query, null)
         if(result.moveToFirst()){
             do {

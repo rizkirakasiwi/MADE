@@ -52,19 +52,19 @@ class MovieAdapter(
         }
 
         view.img_favorite.setOnClickListener {
-            if (view.img_favorite.isChecked) {
-                DatabaseHelper(view.context).insertData(
-                    TABLE_MOVIE,
-                    values(myViewHolder.adapterPosition)
-                )
+            GlobalScope.launch(Dispatchers.Main) {
+                if (view.img_favorite.isChecked) {
+                    DatabaseHelper(view.context).insertData(
+                        TABLE_MOVIE,
+                        values(myViewHolder.adapterPosition)
+                    )
 
-                Log.i("Adapter", myViewHolder.adapterPosition.toString())
-            } else {
-                DatabaseHelper(view.context).deleteFav(
-                    TABLE_MOVIE,
-                    data.results[myViewHolder.adapterPosition].id.toString()
-                )
-                Log.i("Adapter", myViewHolder.adapterPosition.toString())
+                } else {
+                    DatabaseHelper(view.context).deleteFav(
+                        TABLE_MOVIE,
+                        data.results[myViewHolder.adapterPosition].id.toString()
+                    )
+                }
             }
         }
 
@@ -130,15 +130,13 @@ class MovieAdapter(
             view.img_banner
         )
 
-        val favoriteDb = DatabaseHelper(view.context).loadFav()
-        favoriteDb.forEach {
-            view.img_favorite.isChecked = data.results[position].id.toString() == it.id
+        GlobalScope.launch(Dispatchers.Main) {
+            val favoriteData = DatabaseHelper(view.context).loadFav(TABLE_MOVIE)
+            val favorite = favoriteData.find { data.results[position].id.toString() == it.id }
+            view.img_favorite.isChecked = (favorite != null)
         }
 
-
     }
-
-
 
 
     private fun load(image_path: String?, imageView: ImageView) =

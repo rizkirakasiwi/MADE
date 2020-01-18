@@ -1,5 +1,7 @@
 package com.rizkirakasiwi.made.fragment.controller
 
+import android.content.ContentValues
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -7,7 +9,11 @@ import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.rizkirakasiwi.made.R
+import com.rizkirakasiwi.made.fragment.DatabaseHelper
+import com.rizkirakasiwi.made.fragment.DatabaseHelper.Companion.TABLE_MOVIE
+import com.rizkirakasiwi.made.fragment.DatabaseHelper.Companion.TABLE_TVSHOW
 import com.rizkirakasiwi.made.fragment.controller.GenerateToGenreName.generate
+import com.rizkirakasiwi.made.fragment.data.FavoriteDb
 import com.rizkirakasiwi.made.fragment.data.tvShow.DataTv
 import com.rizkirakasiwi.made.fragment.ui.Detail
 import com.squareup.picasso.Picasso
@@ -22,6 +28,7 @@ class TvShowAdapter(
     private val language: HashMap<String, String>
 ) : RecyclerView.Adapter<MyViewHolder>() {
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.catalog_ui, parent, false)
         val myViewHolder = MyViewHolder(view)
@@ -34,6 +41,23 @@ class TvShowAdapter(
                 Detail.LANGUAGE to language
             )
             it.findNavController().navigate(R.id.action_homeMain_to_detail, bundle)
+        }
+
+        view.img_favorite.setOnClickListener {
+            GlobalScope.launch(Dispatchers.Main) {
+                if (view.img_favorite.isChecked) {
+                    DatabaseHelper(view.context).insertData(
+                        TABLE_TVSHOW,
+                        values(myViewHolder.adapterPosition)
+                    )
+
+                } else {
+                    DatabaseHelper(view.context).deleteFav(
+                        TABLE_TVSHOW,
+                        data.results[myViewHolder.adapterPosition].id.toString()
+                    )
+                }
+            }
         }
         return myViewHolder
     }
@@ -61,6 +85,12 @@ class TvShowAdapter(
 
         val my_genre = generate(data.results[position].genre_ids, genre)
         view.txt_genre.text = my_genre.joinToString(", ")
+
+        GlobalScope.launch(Dispatchers.Main) {
+            val favoriteData = DatabaseHelper(view.context).loadFav(TABLE_TVSHOW)
+            val favorite = favoriteData.find { data.results[position].id.toString() == it.id }
+            view.img_favorite.isChecked = (favorite != null)
+        }
     }
 
     private fun load(image_path: String?, imageView: ImageView) =
@@ -70,4 +100,40 @@ class TvShowAdapter(
                 Picasso.get().load(url).into(imageView)
             }
         }
+
+    private fun values(position: Int): ContentValues {
+        val contentValues = ContentValues()
+        contentValues.put(FavoriteDb.ID, data.results[position].id)
+        contentValues.put(
+            FavoriteDb.TAHUN,
+            data.results[position].first_air_date
+        )
+        contentValues.put(FavoriteDb.JUDUL, data.results[position].name)
+        contentValues.put(
+            FavoriteDb.RATING,
+            data.results[position].vote_average
+        )
+        contentValues.put(
+            FavoriteDb.IMAGE_PATH,
+            data.results[position].poster_path
+        )
+        contentValues.put(
+            FavoriteDb.GENRE,
+            generate(
+                data.results[position].genre_ids,
+                genre
+            ).joinToString(", ")
+        )
+        contentValues.put(
+            FavoriteDb.DESKRIPSI,
+            data.results[position].overview
+        )
+        contentValues.put(
+            FavoriteDb.BAHASA,
+            data.results[position].original_language
+        )
+
+
+        return contentValues
+    }
 }
