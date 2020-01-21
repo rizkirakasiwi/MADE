@@ -1,21 +1,28 @@
 package com.rizkirakasiwi.made.fragment.ui
 
+import android.graphics.Color
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.content.res.AppCompatResources.getDrawable
+import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.Observer
-import com.google.android.material.bottomnavigation.BottomNavigationView
 
 import com.rizkirakasiwi.made.R
 import com.rizkirakasiwi.made.fragment.controller.API
+import com.rizkirakasiwi.made.fragment.data.FavoriteDb
 import com.rizkirakasiwi.made.fragment.data.movie.MovieResult
 import com.rizkirakasiwi.made.fragment.data.other.DataDetail
 import com.rizkirakasiwi.made.fragment.data.tvShow.TvResult
+import com.rizkirakasiwi.made.fragment.database.DatabaseHelper
+import com.rizkirakasiwi.made.fragment.database.DatabaseHelper.Companion.TABLE_MOVIE
+import com.rizkirakasiwi.made.fragment.database.DatabaseHelper.Companion.TABLE_TVSHOW
 import com.rizkirakasiwi.made.fragment.model.DetailViewModel
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.detail_fragment.*
@@ -31,6 +38,7 @@ class Detail : Fragment() {
         const val TVSHOW = "TvShow"
         const val GENRE = "generate"
         const val LANGUAGE = "language"
+        const val FAVORITE = "favorite_movie"
     }
 
     private lateinit var viewModel: DetailViewModel
@@ -47,7 +55,11 @@ class Detail : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(DetailViewModel::class.java)
-        val tvData = arguments?.getParcelable<TvResult>(TVSHOW)
+        val tvData =
+            arguments?.getParcelable<TvResult>(TVSHOW)
+        val favorite = arguments?.getParcelable<FavoriteDb>(
+            FAVORITE
+        )
         val movieData = arguments?.getParcelable<MovieResult>(MOVIE)
         val genre = arguments?.getStringArrayList(GENRE)
         val language = arguments?.getString(LANGUAGE)
@@ -56,31 +68,46 @@ class Detail : Fragment() {
                 tv = tvData,
                 movie = movieData,
                 genre = genre,
-                language = language
+                language = language,
+                favorite = favorite
             )
         )
     }
 
+
     override fun onResume() {
         super.onResume()
-       (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.detail)
+        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.detail)
+
         viewModel.dataDetail.observe(this, Observer {
-            txt_detail_deskripsi.text = it.movie?.overview ?: it.tv?.overview
-            txt_detail_judultahun.text = resources.getString(
-                R.string.judul,
-                it.tv?.original_name ?: it.movie?.original_title,
-                it.tv?.first_air_date?.substring(0, 4) ?: it.movie?.release_date?.substring(0, 4)
-            )
-
-            val vote_average = it.tv?.vote_average ?: it.movie?.vote_average
-            img_detail_rating.rating = vote_average!!.toFloat()/2f
-
-            txt_detail_rating.text = vote_average.toString()
-            txt_detail_genre.text = it.genre?.joinToString(", ")
-            load(it.tv?.poster_path ?: it.movie?.poster_path, img_detail_banner)
-            txt_detail_language.text = it.language
+            loadData(it)
         })
     }
+
+
+    private fun loadData(it : DataDetail){
+        txt_detail_deskripsi.text =
+            it.movie?.overview ?: it.tv?.overview ?: it.favorite?.deskripsi
+        txt_detail_judultahun.text = resources.getString(
+            R.string.judul,
+            it.tv?.original_name ?: it.movie?.original_title ?: it.favorite?.judul,
+            it.tv?.first_air_date?.substring(0, 4) ?: it.movie?.release_date?.substring(0, 4)
+            ?: it.favorite?.tahun?.substring(0, 4)
+        )
+
+        val vote_average = it.tv?.vote_average?.toFloat() ?: it.movie?.vote_average?.toFloat()
+        ?: it.favorite?.rating?.toFloat()
+        img_detail_rating.rating = vote_average!! / 2f
+
+        txt_detail_rating.text = vote_average.toString()
+        txt_detail_genre.text = it.genre?.joinToString(", ") ?: it.favorite?.genre
+        load(
+            it.tv?.poster_path ?: it.movie?.poster_path ?: it.favorite?.image_path,
+            img_detail_banner
+        )
+        txt_detail_language.text = it.favorite?.bahasa ?: it.language
+    }
+
 
     private fun load(image_path: String?, imageView: ImageView) =
         GlobalScope.launch(Dispatchers.Main) {

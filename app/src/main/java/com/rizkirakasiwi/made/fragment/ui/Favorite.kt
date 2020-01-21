@@ -6,11 +6,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.tabs.TabLayout
 
 import com.rizkirakasiwi.made.R
 import com.rizkirakasiwi.made.fragment.controller.ViewPagerAdapter
 import com.rizkirakasiwi.made.fragment.model.FavoriteViewModel
+import kotlinx.android.synthetic.main.detail_fragment.*
 import kotlinx.android.synthetic.main.favorite_fragment.*
 import kotlinx.android.synthetic.main.fragment_home_main.*
 
@@ -48,6 +50,11 @@ class Favorite : Fragment() {
             }
 
         })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.favorite)
     }
 
 }

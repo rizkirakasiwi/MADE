@@ -1,31 +1,24 @@
 package com.rizkirakasiwi.made.fragment.controller
 
 import android.content.ContentValues
-import android.content.Context
-import android.media.Image
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.ToggleButton
 import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.rizkirakasiwi.made.R
-import com.rizkirakasiwi.made.fragment.DatabaseHelper
-import com.rizkirakasiwi.made.fragment.DatabaseHelper.Companion.TABLE_MOVIE
+import com.rizkirakasiwi.made.fragment.database.DatabaseHelper
+import com.rizkirakasiwi.made.fragment.database.DatabaseHelper.Companion.TABLE_MOVIE
 import com.rizkirakasiwi.made.fragment.controller.GenerateToGenreName.generate
 import com.rizkirakasiwi.made.fragment.data.FavoriteDb
 import com.rizkirakasiwi.made.fragment.data.movie.DataMovie
-import com.rizkirakasiwi.made.fragment.data.movie.MovieResult
 import com.rizkirakasiwi.made.fragment.ui.Detail
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.catalog_ui.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import okhttp3.internal.notify
 
 class MovieAdapter(
     private val data: DataMovie,
@@ -54,13 +47,15 @@ class MovieAdapter(
         view.img_favorite.setOnClickListener {
             GlobalScope.launch(Dispatchers.Main) {
                 if (view.img_favorite.isChecked) {
-                    DatabaseHelper(view.context).insertData(
+                    DatabaseHelper(view.context)
+                        .insertData(
                         TABLE_MOVIE,
                         values(myViewHolder.adapterPosition)
                     )
 
                 } else {
-                    DatabaseHelper(view.context).deleteFav(
+                    DatabaseHelper(view.context)
+                        .deleteFav(
                         TABLE_MOVIE,
                         data.results[myViewHolder.adapterPosition].id.toString()
                     )
@@ -131,7 +126,9 @@ class MovieAdapter(
         )
 
         GlobalScope.launch(Dispatchers.Main) {
-            val favoriteData = DatabaseHelper(view.context).loadFav(TABLE_MOVIE)
+            val favoriteData = DatabaseHelper(
+                view.context
+            ).loadFav(TABLE_MOVIE)
             val favorite = favoriteData.find { data.results[position].id.toString() == it.id }
             view.img_favorite.isChecked = (favorite != null)
         }

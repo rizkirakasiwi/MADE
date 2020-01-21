@@ -1,14 +1,11 @@
-package com.rizkirakasiwi.made.fragment
+package com.rizkirakasiwi.made.fragment.database
 
 import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
-import android.widget.Toast
 import com.rizkirakasiwi.made.fragment.data.FavoriteDb
-import com.rizkirakasiwi.made.fragment.data.movie.MovieResult
-import com.rizkirakasiwi.made.fragment.data.tvShow.TvResult
 
 class DatabaseHelper (context: Context):SQLiteOpenHelper(context,"FavoriteDb",null,1){
 
@@ -27,7 +24,7 @@ class DatabaseHelper (context: Context):SQLiteOpenHelper(context,"FavoriteDb",nu
             "${FavoriteDb.TAHUN} TEXT" +
             ")"
 
-    private val tableTvShow = "CREATE TABLE ${TABLE_TVSHOW}(" +
+    private val tableTvShow = "CREATE TABLE $TABLE_TVSHOW(" +
             "${FavoriteDb.ID} TEXT PRIMARY KEY," +
             "${FavoriteDb.BAHASA} TEXT," +
             "${FavoriteDb.DESKRIPSI} TEXT," +
@@ -45,8 +42,8 @@ class DatabaseHelper (context: Context):SQLiteOpenHelper(context,"FavoriteDb",nu
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
-        db?.execSQL("DROP TABLE IF EXISTS ${TABLE_MOVIE}")
-        db?.execSQL("DROP TABLE IF EXISTS ${TABLE_TVSHOW}")
+        db?.execSQL("DROP TABLE IF EXISTS $TABLE_MOVIE")
+        db?.execSQL("DROP TABLE IF EXISTS $TABLE_TVSHOW")
     }
 
 
@@ -70,14 +67,14 @@ class DatabaseHelper (context: Context):SQLiteOpenHelper(context,"FavoriteDb",nu
         if(result.moveToFirst()){
             do {
                 val data = FavoriteDb(
-                    result.getString(result.getColumnIndex(FavoriteDb.ID)),
-                    result.getString(result.getColumnIndex(FavoriteDb.BAHASA)),
-                    result.getString(result.getColumnIndex(FavoriteDb.DESKRIPSI)),
-                    result.getString(result.getColumnIndex(FavoriteDb.GENRE)),
-                    result.getString(result.getColumnIndex(FavoriteDb.IMAGE_PATH)),
-                    result.getString(result.getColumnIndex(FavoriteDb.JUDUL)),
-                    result.getString(result.getColumnIndex(FavoriteDb.RATING)),
-                    result.getString(result.getColumnIndex(FavoriteDb.TAHUN))
+                    id = result.getString(result.getColumnIndex(FavoriteDb.ID)),
+                    bahasa = result.getString(result.getColumnIndex(FavoriteDb.BAHASA)),
+                    deskripsi = result.getString(result.getColumnIndex(FavoriteDb.DESKRIPSI)),
+                    genre = result.getString(result.getColumnIndex(FavoriteDb.GENRE)),
+                    image_path = result.getString(result.getColumnIndex(FavoriteDb.IMAGE_PATH)),
+                    judul = result.getString(result.getColumnIndex(FavoriteDb.JUDUL)),
+                    rating = result.getString(result.getColumnIndex(FavoriteDb.RATING)),
+                    tahun = result.getString(result.getColumnIndex(FavoriteDb.TAHUN))
                 )
 
                 list.add(data)
