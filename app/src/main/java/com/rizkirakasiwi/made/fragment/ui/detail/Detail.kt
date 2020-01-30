@@ -1,17 +1,13 @@
-package com.rizkirakasiwi.made.fragment.ui
+package com.rizkirakasiwi.made.fragment.ui.detail
 
-import android.graphics.Color
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.content.res.AppCompatResources.getDrawable
-import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.Observer
 
 import com.rizkirakasiwi.made.R
@@ -20,10 +16,6 @@ import com.rizkirakasiwi.made.fragment.data.FavoriteDb
 import com.rizkirakasiwi.made.fragment.data.movie.MovieResult
 import com.rizkirakasiwi.made.fragment.data.other.DataDetail
 import com.rizkirakasiwi.made.fragment.data.tvShow.TvResult
-import com.rizkirakasiwi.made.fragment.database.DatabaseHelper
-import com.rizkirakasiwi.made.fragment.database.DatabaseHelper.Companion.TABLE_MOVIE
-import com.rizkirakasiwi.made.fragment.database.DatabaseHelper.Companion.TABLE_TVSHOW
-import com.rizkirakasiwi.made.fragment.model.DetailViewModel
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.detail_fragment.*
 import kotlinx.coroutines.Dispatchers

@@ -1,4 +1,4 @@
-package com.rizkirakasiwi.made.fragment.model
+package com.rizkirakasiwi.made.fragment.ui.home.tvShow
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

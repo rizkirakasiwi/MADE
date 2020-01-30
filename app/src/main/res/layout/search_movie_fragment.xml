@@ -4,16 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.ui.favorite.favoriteTvShow.FavoriteTvShow"
+    tools:context=".fragment.ui.search.searchMovie.SearchMovie"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_search_movie"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:layout_width="match_parent"
         android:visibility="gone"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:layout_height="match_parent"
-        android:id="@+id/recycler_favorite_tv"
-        />
+        android:layout_height="match_parent"/>
 
     <com.cooltechworks.views.shimmer.ShimmerRecyclerView
         app:shimmer_demo_child_count="10"
@@ -21,8 +20,15 @@
         app:shimmer_demo_layout_manager_type="linear_vertical"
         app:shimmer_demo_angle="20"
         android:layout_gravity="center"
-        android:id="@+id/progresbar_favorite_tv"
+        android:visibility="gone"
+        android:id="@+id/progresbar_search_movie"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
-
+    <TextView
+        android:id="@+id/txt_search_movie_notfound"
+        android:gravity="center"
+        android:textColor="@color/light"
+        android:text="@string/data_not_found"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 </LinearLayout>

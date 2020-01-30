@@ -16,4 +16,7 @@
     <string name="are_you_sure">Are you sure you want to delete this from favorites?</string>
     <string name="yes">Yes</string>
     <string name="cancel">Cancel</string>
+    <string name="add">Add</string>
+    <string name="search">Search</string>
+    <string name="data_not_found">Data not found</string>
 </resources>

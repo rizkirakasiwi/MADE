@@ -1,4 +1,4 @@
-package com.rizkirakasiwi.made.fragment.model
+package com.rizkirakasiwi.made.fragment.ui.favorite.favoriteParent
 
 import androidx.lifecycle.ViewModel
 

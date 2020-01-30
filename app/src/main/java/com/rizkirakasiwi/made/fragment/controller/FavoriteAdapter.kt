@@ -13,7 +13,7 @@ import com.rizkirakasiwi.made.fragment.data.FavoriteDb
 import com.rizkirakasiwi.made.fragment.database.DatabaseHelper
 import com.rizkirakasiwi.made.fragment.database.DatabaseHelper.Companion.TABLE_MOVIE
 import com.rizkirakasiwi.made.fragment.database.DatabaseHelper.Companion.TABLE_TVSHOW
-import com.rizkirakasiwi.made.fragment.ui.Detail
+import com.rizkirakasiwi.made.fragment.ui.detail.Detail
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.catalog_ui.view.*
 import kotlinx.coroutines.Dispatchers

@@ -1,4 +1,4 @@
-package com.rizkirakasiwi.made.fragment.ui
+package com.rizkirakasiwi.made.fragment.ui.favorite.favoriteParent
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -11,15 +11,14 @@ import com.google.android.material.tabs.TabLayout
 
 import com.rizkirakasiwi.made.R
 import com.rizkirakasiwi.made.fragment.controller.ViewPagerAdapter
-import com.rizkirakasiwi.made.fragment.model.FavoriteViewModel
-import kotlinx.android.synthetic.main.detail_fragment.*
 import kotlinx.android.synthetic.main.favorite_fragment.*
 import kotlinx.android.synthetic.main.fragment_home_main.*
 
 class Favorite : Fragment() {
 
     companion object {
-        fun newInstance() = Favorite()
+        fun newInstance() =
+            Favorite()
     }
 
     private lateinit var viewModel: FavoriteViewModel
@@ -39,9 +38,9 @@ class Favorite : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val adapter = ViewPagerAdapter(childFragmentManager, true)
+        val adapter = ViewPagerAdapter(childFragmentManager, isFavorite = true)
         viewPager_Favorite.adapter = adapter
-        viewPager_Favorite.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tab_homeMain))
+        viewPager_Favorite.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tab_Favorite))
         tab_Favorite.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
             override fun onTabReselected(p0: TabLayout.Tab?) {}
             override fun onTabUnselected(p0: TabLayout.Tab?) {}

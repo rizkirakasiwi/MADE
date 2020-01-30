@@ -1,6 +1,7 @@
 package com.rizkirakasiwi.made.fragment.controller
 
 import com.google.gson.Gson
+import com.rizkirakasiwi.made.BuildConfig
 import com.rizkirakasiwi.made.fragment.data.genre.DataGenre
 import com.rizkirakasiwi.made.fragment.data.language.DataLanguage
 import kotlinx.coroutines.Dispatchers
@@ -10,7 +11,7 @@ import okhttp3.Request
 
 object API {
 
-    private val api_key = "4a286864a1858629d01785f0a55d4f90"
+    private val api_key = BuildConfig.API_KEY
 
     fun movieUrl(language: String) =
         "https://api.themoviedb.org/3/discover/movie?api_key=$api_key&language=$language"

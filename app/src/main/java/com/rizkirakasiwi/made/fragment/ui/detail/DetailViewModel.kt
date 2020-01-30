@@ -1,11 +1,8 @@
-package com.rizkirakasiwi.made.fragment.model
+package com.rizkirakasiwi.made.fragment.ui.detail
 
-import android.content.ContentValues
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.rizkirakasiwi.made.fragment.controller.GenerateToGenreName
-import com.rizkirakasiwi.made.fragment.data.FavoriteDb
 import com.rizkirakasiwi.made.fragment.data.other.DataDetail
 
 class DetailViewModel : ViewModel() {

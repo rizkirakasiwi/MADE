@@ -1,7 +1,6 @@
-package com.rizkirakasiwi.made.fragment.ui
+package com.rizkirakasiwi.made.fragment.ui.home.parent
 
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
@@ -13,7 +12,6 @@ import com.google.android.material.tabs.TabLayout
 
 import com.rizkirakasiwi.made.R
 import com.rizkirakasiwi.made.fragment.controller.ViewPagerAdapter
-import com.rizkirakasiwi.made.fragment.data.movie.MovieResult
 import kotlinx.android.synthetic.main.fragment_home_main.*
 
 
@@ -24,6 +22,7 @@ class HomeMain : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.movie_catalogue)
         return inflater.inflate(R.layout.fragment_home_main, container, false)
     }
 
@@ -32,10 +31,6 @@ class HomeMain : Fragment() {
         setHasOptionsMenu(true)
     }
 
-    override fun onResume() {
-        super.onResume()
-        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.movie_catalogue)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -53,7 +48,7 @@ class HomeMain : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_language, menu)
+        inflater.inflate(R.menu.menu_main, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
@@ -66,6 +61,9 @@ class HomeMain : Fragment() {
             }
             R.id.menu_favorite -> {
                 view?.findNavController()?.navigate(R.id.action_homeMain_to_favorite)
+            }
+            R.id.menu_search ->{
+                view?.findNavController()?.navigate(R.id.action_homeMain_to_search)
             }
         }
         return super.onOptionsItemSelected(item)

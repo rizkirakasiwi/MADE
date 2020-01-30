@@ -16,4 +16,7 @@
     <string name="are_you_sure">Apa anda yakin ingin menghapus ini dari favorit?</string>
     <string name="yes">Iya</string>
     <string name="cancel">Batal</string>
+    <string name="add">Tambah</string>
+    <string name="search">Cari</string>
+    <string name="data_not_found">Data tidak ditemukan</string>
 </resources>
