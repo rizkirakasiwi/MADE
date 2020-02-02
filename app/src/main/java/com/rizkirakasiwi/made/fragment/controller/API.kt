@@ -30,6 +30,12 @@ object API {
     fun poster(poster_path: String, poster_size: String = "w154") =
         "https://image.tmdb.org/t/p/$poster_size$poster_path"
 
+    fun searchMovieUrl(language: String, query: String?) =
+        "https://api.themoviedb.org/3/search/movie?api_key=$api_key&language=$language&query=$query"
+
+    fun searchTvShowUrl(language: String, query: String?) =
+        "https://api.themoviedb.org/3/search/tv?api_key=$api_key&language=$language&query=$query"
+
 
     fun <T> getData(url: String, objectClass: Class<T>): T {
         val request = Request.Builder()

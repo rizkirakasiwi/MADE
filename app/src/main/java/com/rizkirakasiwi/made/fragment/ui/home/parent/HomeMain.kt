@@ -62,9 +62,6 @@ class HomeMain : Fragment() {
             R.id.menu_favorite -> {
                 view?.findNavController()?.navigate(R.id.action_homeMain_to_favorite)
             }
-            R.id.menu_search ->{
-                view?.findNavController()?.navigate(R.id.action_homeMain_to_search)
-            }
         }
         return super.onOptionsItemSelected(item)
     }

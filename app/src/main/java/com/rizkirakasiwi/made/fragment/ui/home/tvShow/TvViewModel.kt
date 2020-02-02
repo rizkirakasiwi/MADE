@@ -20,6 +20,12 @@ class TvViewModel : ViewModel() {
         )
     }
 
+    suspend fun getTvDataFromSearch(language: String, query:String?) = withContext(Dispatchers.IO) {
+        return@withContext API.getData(
+            API.searchTvShowUrl(language, query),
+            DataTv::class.java
+        )
+    }
 
     fun setData(dataForAdapter: DataForAdapter) {
         _dataForAdapter.value = dataForAdapter

@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
 import com.rizkirakasiwi.made.fragment.controller.API
 import com.rizkirakasiwi.made.R
@@ -42,23 +43,13 @@ class Movie : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(MovieViewModel::class.java)
-        Log.i(TAG, "oncreate")
         if(isOnline()) {
-            GlobalScope.launch(Dispatchers.Main) {
-                val language = resources.getString(R.string.language)
-                val movie = viewModel.getMovieData(language)
-
-                val genre = API.getGenre(API.genreMovieUrl(language))
-                val languageList = API.getLanguage(API.LanguageUrl())
-
-                val dataForAdapter =
-                    DataForAdapter(movie = movie, genre = genre, language = languageList)
-                viewModel.setData(dataForAdapter)
-            }
+            search("")
         }else{
             Log.i(TAG, "Network is not available")
         }
     }
+
 
     fun isOnline(): Boolean {
         val connMgr = activity?.getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -68,17 +59,62 @@ class Movie : Fragment() {
 
 
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        viewModel.dataForAdapter.observe(this, Observer {
-            Loading(true)
-            recycler_movie.adapter =
-                MovieAdapter(
-                    it.movie!!,
-                    it.genre!!,
-                    it.language!!
-                )
+
+
+    override fun onResume() {
+        super.onResume()
+
+        src_searcview_movie.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+               GlobalScope.launch(Dispatchers.Main){
+                   if(isOnline()) {
+                       search(newText)
+                   }else{
+                       Log.i(TAG, "Network is not available")
+                   }
+               }
+
+                return true
+            }
         })
+
+        viewModel.dataForAdapter.observe(this, Observer {
+            if(it.movie?.results.isNullOrEmpty()) Loading(false)
+            else {
+                Loading(true)
+                recycler_movie.adapter =
+                    MovieAdapter(
+                        it.movie!!,
+                        it.genre!!,
+                        it.language!!
+                    )
+            }
+        })
+    }
+
+
+    private fun search(newText:String?){
+        GlobalScope.launch(Dispatchers.Main) {
+            val language = resources.getString(R.string.language)
+            val genre = API.getGenre(API.genreMovieUrl(language))
+            val languageList = API.getLanguage(API.LanguageUrl())
+
+            if(newText?.length == 0){
+                val movie = viewModel.getMovieData(language)
+                val dataForAdapter =
+                    DataForAdapter(movie = movie, genre = genre, language = languageList)
+                viewModel.setData(dataForAdapter)
+            }else{
+                val movie = viewModel.getMovieDataFromSearch(language, newText)
+                val dataForAdapter =
+                    DataForAdapter(movie = movie, genre = genre, language = languageList)
+                viewModel.setData(dataForAdapter)
+            }
+        }
     }
 
 

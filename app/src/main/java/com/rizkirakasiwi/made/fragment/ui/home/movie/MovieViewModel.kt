@@ -20,9 +20,16 @@ class MovieViewModel : ViewModel() {
         )
     }
 
+    suspend fun getMovieDataFromSearch(language: String, query:String?) = withContext(Dispatchers.IO) {
+        return@withContext API.getData(
+            API.searchMovieUrl(language,query),
+            DataMovie::class.java
+        )
+    }
 
     fun setData(dataForAdapter: DataForAdapter) {
         _dataForAdapter.value = dataForAdapter
     }
+
 
 }

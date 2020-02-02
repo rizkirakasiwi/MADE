@@ -3,7 +3,7 @@ package com.rizkirakasiwi.made.fragment.ui.favorite.favoriteTvShow
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.rizkirakasiwi.made.fragment.data.FavoriteDb
+import com.rizkirakasiwi.made.fragment.data.other.FavoriteDb
 
 class FavoriteTvShowViewModel : ViewModel() {
     private val _favoriteData = MutableLiveData<List<FavoriteDb>>()

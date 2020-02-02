@@ -5,7 +5,7 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
-import com.rizkirakasiwi.made.fragment.data.FavoriteDb
+import com.rizkirakasiwi.made.fragment.data.other.FavoriteDb
 
 class DatabaseHelper (context: Context):SQLiteOpenHelper(context,"FavoriteDb",null,1){
 

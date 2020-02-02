@@ -1,4 +1,4 @@
-package com.rizkirakasiwi.made.fragment.data
+package com.rizkirakasiwi.made.fragment.data.other
 
 import android.os.Parcel
 import android.os.Parcelable

@@ -9,7 +9,7 @@ import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.rizkirakasiwi.made.R
-import com.rizkirakasiwi.made.fragment.data.FavoriteDb
+import com.rizkirakasiwi.made.fragment.data.other.FavoriteDb
 import com.rizkirakasiwi.made.fragment.database.DatabaseHelper
 import com.rizkirakasiwi.made.fragment.database.DatabaseHelper.Companion.TABLE_MOVIE
 import com.rizkirakasiwi.made.fragment.database.DatabaseHelper.Companion.TABLE_TVSHOW

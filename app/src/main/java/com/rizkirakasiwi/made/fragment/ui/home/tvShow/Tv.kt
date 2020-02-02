@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
 import com.rizkirakasiwi.made.fragment.controller.API
 
@@ -42,31 +43,61 @@ class Tv : Fragment() {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(TvViewModel::class.java)
         if (isOnline()) {
-            GlobalScope.launch(Dispatchers.Main) {
-                val language = resources.getString(R.string.language)
-                val tvShow = viewModel.getTvData(language)
-                val genre = API.getGenre(API.genreTvUrl(language))
-                val languageList = API.getLanguage(API.LanguageUrl())
-                val dataForAdapter =
-                    DataForAdapter(tvshow = tvShow, genre = genre, language = languageList)
-                viewModel.setData(dataForAdapter)
-            }
+            search("")
         }else{
             Log.i(TAG, "Network is available")
         }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        viewModel.dataForAdapter.observe(this, Observer {
-            Loading(true)
-            recycler_tv.adapter =
-                TvShowAdapter(
-                    it.tvshow!!,
-                    it.genre!!,
-                    it.language!!
-                )
+
+    override fun onResume() {
+        super.onResume()
+
+        src_searcview_tv.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                search(newText)
+                return true
+            }
+
         })
+
+        viewModel.dataForAdapter.observe(this, Observer {
+            if(it.tvshow?.results.isNullOrEmpty()) Loading(false)
+            else {
+                Loading(true)
+                recycler_tv.adapter =
+                    TvShowAdapter(
+                        it.tvshow!!,
+                        it.genre!!,
+                        it.language!!
+                    )
+            }
+        })
+    }
+
+
+    private fun search(newText:String?){
+        GlobalScope.launch(Dispatchers.Main) {
+            val language = resources.getString(R.string.language)
+            val genre = API.getGenre(API.genreTvUrl(language))
+            val languageList = API.getLanguage(API.LanguageUrl())
+
+            if(newText?.length == 0){
+                val tv = viewModel.getTvData(language)
+                val dataForAdapter =
+                    DataForAdapter(tvshow = tv, genre = genre, language = languageList)
+                viewModel.setData(dataForAdapter)
+            }else{
+                val tv = viewModel.getTvDataFromSearch(language, newText)
+                val dataForAdapter =
+                    DataForAdapter(tvshow = tv, genre = genre, language = languageList)
+                viewModel.setData(dataForAdapter)
+            }
+        }
     }
 
 

@@ -12,7 +12,7 @@ import androidx.lifecycle.Observer
 
 import com.rizkirakasiwi.made.R
 import com.rizkirakasiwi.made.fragment.controller.API
-import com.rizkirakasiwi.made.fragment.data.FavoriteDb
+import com.rizkirakasiwi.made.fragment.data.other.FavoriteDb
 import com.rizkirakasiwi.made.fragment.data.movie.MovieResult
 import com.rizkirakasiwi.made.fragment.data.other.DataDetail
 import com.rizkirakasiwi.made.fragment.data.tvShow.TvResult

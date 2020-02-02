@@ -11,7 +11,7 @@ import com.rizkirakasiwi.made.R
 import com.rizkirakasiwi.made.fragment.database.DatabaseHelper
 import com.rizkirakasiwi.made.fragment.database.DatabaseHelper.Companion.TABLE_TVSHOW
 import com.rizkirakasiwi.made.fragment.controller.GenerateToGenreName.generate
-import com.rizkirakasiwi.made.fragment.data.FavoriteDb
+import com.rizkirakasiwi.made.fragment.data.other.FavoriteDb
 import com.rizkirakasiwi.made.fragment.data.tvShow.DataTv
 import com.rizkirakasiwi.made.fragment.ui.detail.Detail
 import com.squareup.picasso.Picasso
