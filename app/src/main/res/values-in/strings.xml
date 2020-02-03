@@ -19,4 +19,6 @@
     <string name="add">Tambah</string>
     <string name="search">Cari</string>
     <string name="data_not_found">Data tidak ditemukan</string>
+    <string name="empty_text">Favorit Tidak Ditemukan</string>
+    <string name="favorite_movies_tvshow">Favorit Film/Acara Tv</string>
 </resources>

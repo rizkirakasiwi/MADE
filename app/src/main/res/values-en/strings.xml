@@ -19,4 +19,6 @@
     <string name="add">Add</string>
     <string name="search">Search</string>
     <string name="data_not_found">Data not found</string>
+    <string name="empty_text">Favorite Not Found</string>
+    <string name="favorite_movies_tvshow">Favorite Movies/TvShow</string>
 </resources>
