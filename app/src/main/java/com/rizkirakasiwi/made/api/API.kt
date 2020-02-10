@@ -1,17 +1,43 @@
-package com.rizkirakasiwi.made.fragment.controller
+package com.rizkirakasiwi.made.api
 
+import android.annotation.SuppressLint
+import android.os.Build
+import android.util.Log
 import com.google.gson.Gson
 import com.rizkirakasiwi.made.BuildConfig
-import com.rizkirakasiwi.made.fragment.data.genre.DataGenre
-import com.rizkirakasiwi.made.fragment.data.language.DataLanguage
+import com.rizkirakasiwi.made.data.genre.DataGenre
+import com.rizkirakasiwi.made.data.language.DataLanguage
+import com.rizkirakasiwi.made.reminder.method.ReminderMethod
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 object API {
 
     private val api_key = BuildConfig.API_KEY
+
+
+    @SuppressLint("SimpleDateFormat")
+    private fun dateNow(): String = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        val current = LocalDateTime.now()
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+        current.format(formatter)
+    } else {
+        var date = Date()
+        val formatter = SimpleDateFormat("yyyy-MM-dd")
+        formatter.format(date)
+    }
+
+    fun releaseMovie() =
+        "https://api.themoviedb.org/3/discover/movie?api_key=$api_key&primary_release_date.gte=${dateNow()}&primary_release_date.lte=${dateNow()}"
+
+    fun releaseTvShow() =
+        "https://api.themoviedb.org/3/discover/tv?api_key=$api_key&primary_release_date.gte=${dateNow()}&primary_release_date.lte=${dateNow()}"
 
     fun movieUrl(language: String) =
         "https://api.themoviedb.org/3/discover/movie?api_key=$api_key&language=$language"

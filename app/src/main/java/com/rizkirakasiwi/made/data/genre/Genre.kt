@@ -1,4 +1,4 @@
-package com.rizkirakasiwi.made.fragment.data.genre
+package com.rizkirakasiwi.made.data.genre
 
 data class Genre(
     val id: Int,

@@ -12,11 +12,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
-import com.rizkirakasiwi.made.fragment.controller.API
+import com.rizkirakasiwi.made.api.API
 
 import com.rizkirakasiwi.made.R
 import com.rizkirakasiwi.made.fragment.controller.TvShowAdapter
-import com.rizkirakasiwi.made.fragment.data.other.DataForAdapter
+import com.rizkirakasiwi.made.data.other.DataForAdapter
 import kotlinx.android.synthetic.main.tv_fragment.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -83,8 +83,10 @@ class Tv : Fragment() {
     private fun search(newText:String?){
         GlobalScope.launch(Dispatchers.Main) {
             val language = resources.getString(R.string.language)
-            val genre = API.getGenre(API.genreTvUrl(language))
-            val languageList = API.getLanguage(API.LanguageUrl())
+            val genre = API.getGenre(
+                API.genreTvUrl(language))
+            val languageList = API.getLanguage(
+                API.LanguageUrl())
 
             if(newText?.length == 0){
                 val tv = viewModel.getTvData(language)

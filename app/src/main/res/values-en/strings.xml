@@ -21,4 +21,16 @@
     <string name="data_not_found">Data not found</string>
     <string name="empty_text">Favorite Not Found</string>
     <string name="favorite_movies_tvshow">Favorite Movies/TvShow</string>
+    <string name="content_title">Movie Catalogue</string>
+    <string name="content_text">lots of interesting films today, don\'t miss it</string>
+    <string name="reminder">Reminder</string>
+    <string name="daily_reminder">Daily Reminder</string>
+    <string name="release_reminder">Release Reminder</string>
+    <string name="you_will_get_daily_notifications">You will get daily notifications every 7 o\'clock in the morning</string>
+    <string name="release_notification_desctiption">You will get notifications about the latest movies / tv shows every 8 o\'clock in the morning</string>
+    <string name="setting">Setting</string>
+    <string name="release_today">Release today</string>
+    <string name="new_release">New Release</string>
+    <string name="count_new_release">%s New movie release today</string>
+    <string name="count_new_releaseTv">%s New tv show release today</string>
 </resources>

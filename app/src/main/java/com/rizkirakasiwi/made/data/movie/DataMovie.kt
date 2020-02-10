@@ -1,4 +1,4 @@
-package com.rizkirakasiwi.made.fragment.data.movie
+package com.rizkirakasiwi.made.data.movie
 
 data class DataMovie(
     val results: List<MovieResult>

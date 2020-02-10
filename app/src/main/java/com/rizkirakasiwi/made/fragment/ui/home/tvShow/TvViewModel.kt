@@ -3,9 +3,9 @@ package com.rizkirakasiwi.made.fragment.ui.home.tvShow
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.rizkirakasiwi.made.fragment.controller.API
-import com.rizkirakasiwi.made.fragment.data.other.DataForAdapter
-import com.rizkirakasiwi.made.fragment.data.tvShow.DataTv
+import com.rizkirakasiwi.made.api.API
+import com.rizkirakasiwi.made.data.other.DataForAdapter
+import com.rizkirakasiwi.made.data.tvShow.DataTv
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 

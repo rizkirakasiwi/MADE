@@ -20,6 +20,9 @@
         <action
             android:id="@+id/action_homeMain_to_favorite"
             app:destination="@id/favorite" />
+        <action
+            android:id="@+id/action_homeMain_to_reminderOnOff"
+            app:destination="@id/reminderOnOff" />
     </fragment>
     <fragment
         android:id="@+id/favorite"
@@ -30,4 +33,9 @@
             android:id="@+id/action_favorite_to_detail"
             app:destination="@id/detail" />
     </fragment>
+    <fragment
+        android:id="@+id/reminderOnOff"
+        android:name="com.rizkirakasiwi.made.reminder.ui.ReminderOnOff"
+        android:label="reminder_on_off_fragment"
+        tools:layout="@layout/reminder_on_off_fragment" />
 </navigation>

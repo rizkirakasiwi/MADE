@@ -7,12 +7,13 @@ import android.widget.ImageView
 import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.rizkirakasiwi.made.api.API
 import com.rizkirakasiwi.made.R
-import com.rizkirakasiwi.made.fragment.database.DatabaseHelper
-import com.rizkirakasiwi.made.fragment.database.DatabaseHelper.Companion.TABLE_MOVIE
+import com.rizkirakasiwi.made.database.DatabaseHelper
+import com.rizkirakasiwi.made.database.DatabaseHelper.Companion.TABLE_MOVIE
 import com.rizkirakasiwi.made.fragment.controller.GenerateToGenreName.generate
-import com.rizkirakasiwi.made.fragment.data.other.FavoriteDb
-import com.rizkirakasiwi.made.fragment.data.movie.DataMovie
+import com.rizkirakasiwi.made.data.other.FavoriteDb
+import com.rizkirakasiwi.made.data.movie.DataMovie
 import com.rizkirakasiwi.made.fragment.ui.detail.Detail
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.catalog_ui.view.*

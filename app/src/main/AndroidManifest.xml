@@ -12,6 +12,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <service
+            android:name=".reminder.method.releaseReminder.ReleaseService"
+            android:enabled="true"
+            android:exported="true"></service>
+
+        <receiver
+            android:name=".reminder.method.releaseReminder.ReleaseReceiver"
+            android:enabled="true"
+            android:exported="true" />
+
+        <service
+            android:name=".reminder.method.dailyReminder.DailyService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <receiver
+            android:name=".reminder.method.dailyReminder.DailyReceiver"
+            android:enabled="true"
+            android:exported="true" />
         <receiver android:name=".widget.FavoriteWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -30,7 +49,8 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".widget.StackWidgetService"
+        <service
+            android:name=".widget.StackWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
     </application>
 

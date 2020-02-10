@@ -3,23 +3,14 @@ package com.rizkirakasiwi.made.widget
 import android.appwidget.AppWidgetManager
 import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.drawable.Drawable
-import android.util.Log
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
 import androidx.core.os.bundleOf
 import com.rizkirakasiwi.made.R
-import com.rizkirakasiwi.made.fragment.controller.API
-import com.rizkirakasiwi.made.fragment.data.other.FavoriteDb
-import com.rizkirakasiwi.made.fragment.database.DatabaseHelper
+import com.rizkirakasiwi.made.api.API
+import com.rizkirakasiwi.made.data.other.FavoriteDb
+import com.rizkirakasiwi.made.database.DatabaseHelper
 import com.squareup.picasso.Picasso
-import com.squareup.picasso.Target
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
-import java.lang.Exception
 
 
 internal class StackRemoteViewsFactory(private val context: Context, intent: Intent) :

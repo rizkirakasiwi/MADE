@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    android:padding="16dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".reminder.ui.ReminderOnOff">
+
+
+    <Switch
+        android:textColor="@color/dark"
+        android:textSize="17sp"
+        android:id="@+id/switch_daily_reminder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/daily_reminder" />
+    <TextView
+        android:id="@+id/txt_daily_reminder_description"
+        android:text="@string/you_will_get_daily_notifications"
+        android:textColor="@color/light"
+        android:maxWidth="300dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <Switch
+        android:textColor="@color/dark"
+        android:textSize="17sp"
+        android:layout_marginTop="8dp"
+        android:id="@+id/switch_release_reminder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/release_reminder" />
+    <TextView
+        android:id="@+id/txt_release_reminder_description"
+        android:maxWidth="300dp"
+        android:text="@string/release_notification_desctiption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+</LinearLayout>

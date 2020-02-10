@@ -48,7 +48,7 @@ class HomeMain : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_main, menu)
+        inflater.inflate(R.menu.menu_favorite, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
@@ -61,6 +61,9 @@ class HomeMain : Fragment() {
             }
             R.id.menu_favorite -> {
                 view?.findNavController()?.navigate(R.id.action_homeMain_to_favorite)
+            }
+            R.id.menu_setting ->{
+                view?.findNavController()?.navigate(R.id.action_homeMain_to_reminderOnOff)
             }
         }
         return super.onOptionsItemSelected(item)

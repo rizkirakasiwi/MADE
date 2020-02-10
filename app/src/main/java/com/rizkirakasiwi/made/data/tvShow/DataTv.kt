@@ -1,4 +1,4 @@
-package com.rizkirakasiwi.made.fragment.data.tvShow
+package com.rizkirakasiwi.made.data.tvShow
 
 data class DataTv(
     val page: Int,

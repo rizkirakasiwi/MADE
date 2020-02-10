@@ -1,7 +1,7 @@
-package com.rizkirakasiwi.made.fragment.data.other
+package com.rizkirakasiwi.made.data.other
 
-import com.rizkirakasiwi.made.fragment.data.movie.MovieResult
-import com.rizkirakasiwi.made.fragment.data.tvShow.TvResult
+import com.rizkirakasiwi.made.data.movie.MovieResult
+import com.rizkirakasiwi.made.data.tvShow.TvResult
 
 data class DataDetail(
     val tv: TvResult? = null,

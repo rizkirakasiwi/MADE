@@ -1,7 +1,7 @@
-package com.rizkirakasiwi.made.fragment.data.other
+package com.rizkirakasiwi.made.data.other
 
-import com.rizkirakasiwi.made.fragment.data.movie.DataMovie
-import com.rizkirakasiwi.made.fragment.data.tvShow.DataTv
+import com.rizkirakasiwi.made.data.movie.DataMovie
+import com.rizkirakasiwi.made.data.tvShow.DataTv
 
 data class DataForAdapter(
     val movie: DataMovie? = null,

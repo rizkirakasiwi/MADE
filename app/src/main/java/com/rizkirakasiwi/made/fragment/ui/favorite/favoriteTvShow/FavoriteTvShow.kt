@@ -11,7 +11,7 @@ import androidx.lifecycle.Observer
 
 import com.rizkirakasiwi.made.R
 import com.rizkirakasiwi.made.fragment.controller.FavoriteAdapter
-import com.rizkirakasiwi.made.fragment.database.DatabaseHelper
+import com.rizkirakasiwi.made.database.DatabaseHelper
 import kotlinx.android.synthetic.main.favorite_tv_show_fragment.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope

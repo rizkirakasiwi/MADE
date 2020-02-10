@@ -11,11 +11,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 
 import com.rizkirakasiwi.made.R
-import com.rizkirakasiwi.made.fragment.controller.API
-import com.rizkirakasiwi.made.fragment.data.other.FavoriteDb
-import com.rizkirakasiwi.made.fragment.data.movie.MovieResult
-import com.rizkirakasiwi.made.fragment.data.other.DataDetail
-import com.rizkirakasiwi.made.fragment.data.tvShow.TvResult
+import com.rizkirakasiwi.made.api.API
+import com.rizkirakasiwi.made.data.other.FavoriteDb
+import com.rizkirakasiwi.made.data.movie.MovieResult
+import com.rizkirakasiwi.made.data.other.DataDetail
+import com.rizkirakasiwi.made.data.tvShow.TvResult
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.detail_fragment.*
 import kotlinx.coroutines.Dispatchers

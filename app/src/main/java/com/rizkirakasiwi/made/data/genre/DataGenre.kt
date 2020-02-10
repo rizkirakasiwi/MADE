@@ -1,4 +1,4 @@
-package com.rizkirakasiwi.made.fragment.data.genre
+package com.rizkirakasiwi.made.data.genre
 
 data class DataGenre(
     val genres: List<Genre>
