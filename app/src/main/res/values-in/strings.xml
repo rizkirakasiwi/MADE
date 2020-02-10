@@ -16,9 +16,7 @@
     <string name="are_you_sure">Apa anda yakin ingin menghapus ini dari favorit?</string>
     <string name="yes">Iya</string>
     <string name="cancel">Batal</string>
-    <string name="add">Tambah</string>
     <string name="search">Cari</string>
-    <string name="data_not_found">Data tidak ditemukan</string>
     <string name="empty_text">Favorit Tidak Ditemukan</string>
     <string name="favorite_movies_tvshow">Favorit Film/Acara Tv</string>
     <string name="content_title">Katalog Film</string>
@@ -30,7 +28,6 @@
     <string name="release_notification_desctiption">Anda akan mendapatkan notifikasi tentang film/acara tv terbaru setiap pukul 8 pagi</string>
     <string name="setting">Pengaturan</string>
     <string name="release_today">Rilis hari ini</string>
-    <string name="new_release">Baru Rilis</string>
     <string name="count_new_release">%s Film baru rilis hari ini</string>
     <string name="count_new_releaseTv">%s Acara tv baru rilis hari ini</string>
 </resources>
