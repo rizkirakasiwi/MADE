@@ -1,2 +1,2 @@
-include ':app',':favoritemodule', ':favorite'
+include ':app',':favorite'
 rootProject.name='MADE'
