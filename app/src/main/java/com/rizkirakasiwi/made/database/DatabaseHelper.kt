@@ -11,9 +11,9 @@ import com.rizkirakasiwi.made.data.other.Reminder
 class DatabaseHelper (context: Context):SQLiteOpenHelper(context,"FavoriteDb",null,1){
 
     companion object{
-        val TABLE_MOVIE  = "FavotiteMovie"
-        val TABLE_TVSHOW = "FavoriteTvShow"
-        val TABLE_REMINDER = "Reminder"
+        const val TABLE_MOVIE  = "FavotiteMovie"
+        const val TABLE_TVSHOW = "FavoriteTvShow"
+        const val TABLE_REMINDER = "Reminder"
     }
 
     private val tableReminder = "CREATE TABLE $TABLE_REMINDER(" +

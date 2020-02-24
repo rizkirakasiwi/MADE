@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".favorite.favoriteTvShow.FavoriteTvShow"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:layout_height="match_parent"
+        android:id="@+id/recycler_favorite_tv"
+        />
+
+    <com.cooltechworks.views.shimmer.ShimmerRecyclerView
+        app:shimmer_demo_child_count="10"
+        app:shimmer_demo_layout="@layout/layout_demo"
+        app:shimmer_demo_layout_manager_type="linear_vertical"
+        app:shimmer_demo_angle="20"
+        android:layout_gravity="center"
+        android:id="@+id/progresbar_favorite_tv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>
